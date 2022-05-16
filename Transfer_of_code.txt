@@ -1,0 +1,6 @@
+cat transfer.txt
+
+mv transfer.txt tan.txt
+
+cat transfer.txt
+
