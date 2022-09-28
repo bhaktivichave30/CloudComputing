@@ -1,0 +1,71 @@
+import tensorflow as tf
+from tensorflow import keras
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import random
+%matplotlib inline
+
+#importing dataset and splitting into train and test data
+mnist = tf.keras.datasets.mnist
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+#to see length of traning dataset
+len(x_train)
+
+#to see the lengh of testing data
+len(x_test)
+
+x_train.shape
+
+#we want to see first image
+
+x_train[0]
+
+#It is showing image of matrix of size 28*28 pixels(Total 784 features)
+#each feature represents the intensity between 0 to 255
+
+#to see how first image look
+plt.matshow(x_train[0])
+
+x_train = x_train / 255
+x_test = x_test / 255
+
+x_train[0]
+
+model = keras.Sequential([
+keras.layers.Flatten(input_shape=(28, 28)),	#Input layer
+keras.layers.Dense(128, activation='relu'),	#hidden layer abs
+keras.layers.Dense(10, activation='softmax') #output layer
+])
+
+model.summary()
+
+model.compile(optimizer='sgd',
+loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+history=model.fit(x_train, y_train,validation_data=(x_test,y_test),epochs=10)
+
+test_loss,test_acc=model.evaluate(x_test,y_test)
+print("Loss=%.3f" %test_loss)
+print("Accuracy=%.3f" %test_acc)
+
+#we use predict() on new data
+predicted_value=model.predict(x_test)
+print("Handwritten number in the image is= %d" %np.argmax(predicted_value[n]))
+
+n=random.randint(0,9999)
+plt.imshow(x_test[n])
+plt.show()
+
+
+history.history.keys()
+plt.plot(history.history['loss'])
+plt.plot(history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['Train', 'Validation'], loc='upper left')
+plt.show()
+
+
