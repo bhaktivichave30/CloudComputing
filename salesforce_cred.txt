@@ -1,7 +1,0 @@
-To easily log in later, save this URL:
-https://rmdssoe-d.my.salesforce.com
- 
-Username:
-antaravichave-ylgb@force.com
- 
-Again, welcome to Salesforce!
